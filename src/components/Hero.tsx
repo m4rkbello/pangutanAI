@@ -105,6 +105,7 @@ export function Hero() {
             
             {/* Headline */}
             <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-6">
+                PangutanAI<br></br>
               Your Intelligent
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 {" "}AI Assistant
@@ -116,9 +117,9 @@ export function Hero() {
             </p>
             
             {/* Feature Tags */}
-            <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+            {/* <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
               <span className="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-sm">
-                🧠 1M Token Context
+                🧠 imited Token Context
               </span>
               <span className="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-sm">
                 💻 Code Generation
@@ -126,7 +127,7 @@ export function Hero() {
               <span className="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-sm">
                 ✨ Free Forever
               </span>
-            </div>
+            </div> */}
           </div>
           
           {/* Right Side - Live Demo Chat */}
@@ -135,7 +136,7 @@ export function Hero() {
               <div className="w-3 h-3 rounded-full bg-red-500" />
               <div className="w-3 h-3 rounded-full bg-yellow-500" />
               <div className="w-3 h-3 rounded-full bg-green-500" />
-              <span className="ml-2 text-sm text-gray-500">Try DeepSeek Now</span>
+              <span className="ml-2 text-sm text-gray-500">Try PangutanAI Now</span>
             </div>
             
             {/* Response Area */}
@@ -150,7 +151,7 @@ export function Hero() {
                 </div>
               ) : (
                 <p className="text-gray-400 text-center py-8">
-                  Ask me anything! Try "What can DeepSeek do?" or "Write a React component"
+                  Ask me anything! Try "What can pangutanAI do?" or "Write a React component"
                 </p>
               )}
             </div>

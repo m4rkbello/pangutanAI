@@ -36,7 +36,7 @@ export function Navbar() {
           {/* Logo */}
           <div className="flex items-center gap-2">
             <Sparkles className="w-6 h-6 text-blue-600" />
-            <span className="font-bold text-xl">PANGUTAN<span className="text-blue-600">AI</span></span>
+            <span className="font-bold text-xl">Pangutan<span className="text-blue-600">AI</span></span>
           </div>
           
           {/* Desktop Navigation */}
