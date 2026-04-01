@@ -1,0 +1,31 @@
+pangutanAI-deepseek-landing/
+├── src/
+│   ├── components/
+│   │   ├── ui/              # shadcn/ui components
+│   │   ├── Hero.jsx         # Hero section with live demo
+│   │   ├── Features.jsx     # Features grid
+│   │   ├── Navbar.jsx       # Navigation bar
+│   │   ├── Footer.jsx       # Footer component
+│   │   └── DemoChat.jsx     # Live DeepSeek chat demo
+│   ├── lib/
+│   │   └── utils.js         # cn() helper
+│   ├── App.jsx              # Main app
+│   └── index.css            # Tailwind imports
+├── .env                     # API keys
+└── package.json
+
+
+
+Step 1: Project Setup
+# Create new Vite project with React
+npm create vite@latest pangutanAI -- --template react
+cd deepseek-landing
+
+# Install Tailwind CSS v4
+npm install tailwindcss @tailwindcss/vite
+
+# Install shadcn/ui
+npx shadcn@latest init
+
+# Install additional dependencies
+npm install lucide-react react-markdown
