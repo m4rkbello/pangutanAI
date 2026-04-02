@@ -53,8 +53,8 @@ export function Footer() {
           <div>
             <h3 className="font-semibold mb-4 text-neon-pink">Resources</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-neon-pink transition-colors">Google Gemini API</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-neon-pink transition-colors">GitHub</a></li>
+              <li><a href="https://aistudio.google.com/" className="text-gray-400 hover:text-neon-pink transition-colors">Google Gemini API</a></li>
+              <li><a href="https://github.com/m4rkbello/pangutanAI" className="text-gray-400 hover:text-neon-pink transition-colors">GitHub</a></li>
               <li><a href="#" className="text-gray-400 hover:text-neon-pink transition-colors">Privacy Policy</a></li>
               <li><a href="#" className="text-gray-400 hover:text-neon-pink transition-colors">Terms of Service</a></li>
             </ul>
@@ -63,7 +63,7 @@ export function Footer() {
 
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-neon-blue/20 text-center text-gray-500 text-sm">
-          <p>&copy; {currentYear} PangutanAI. All rights reserved. Powered by Google Gemini 2.5 Flash.</p>
+          <p>&copy; {currentYear} PangutanAI by Mark Bello. All rights reserved. Powered by Google Gemini 2.5 Flash.</p>
         </div>
       </div>
     </footer>

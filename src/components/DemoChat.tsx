@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
-import { Send, Loader2, StopCircle, Trash2, Sparkles } from 'lucide-react';
+import { Send, Loader2, StopCircle, Trash2, Sparkles, Copy, Check } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 export function DemoChat() {
@@ -10,6 +10,7 @@ export function DemoChat() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [cooldown, setCooldown] = useState(false);
+  const [copiedMessageId, setCopiedMessageId] = useState<string | number | null>(null);
   const messagesEndRef = useRef(null);
   const abortControllerRef = useRef(null);
   const lastRequestTime = useRef(0);
@@ -32,6 +33,17 @@ export function DemoChat() {
   const clearChat = () => {
     setMessages([]);
     setError('');
+  };
+
+  const copyToClipboard = async (text: string, messageId: string | number) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedMessageId(messageId);
+      setTimeout(() => setCopiedMessageId(null), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+      setError('Failed to copy to clipboard');
+    }
   };
 
   const canMakeRequest = () => {
@@ -59,7 +71,7 @@ export function DemoChat() {
       return;
     }
 
-    const userMessage = { role: 'user', content: input };
+    const userMessage = { role: 'user', content: input, id: Date.now() };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
@@ -106,7 +118,7 @@ export function DemoChat() {
       const data = await response.json();
       const assistantResponse = data.candidates[0]?.content?.parts[0]?.text || 'Sorry, I could not generate a response.';
 
-      setMessages(prev => [...prev, { role: 'assistant', content: assistantResponse }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: assistantResponse, id: Date.now() + 1 }]);
 
     } catch (error) {
       if (error.name === 'AbortError') {
@@ -178,18 +190,32 @@ export function DemoChat() {
               messages.map((msg, idx) => (
                 <div
                   key={idx}
-                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} group`}
                 >
-                  <div
-                    className={`max-w-[80%] p-3 rounded-xl ${
-                      msg.role === 'user'
-                        ? 'bg-gradient-to-r from-neon-blue to-neon-purple text-white'
-                        : 'bg-white/10 backdrop-blur-sm border border-neon-blue/20 text-gray-200'
-                    }`}
-                  >
-                    <div className="prose prose-sm prose-invert max-w-none">
-                      <ReactMarkdown>{msg.content}</ReactMarkdown>
+                  <div className="relative max-w-[80%]">
+                    <div
+                      className={`p-3 rounded-xl ${
+                        msg.role === 'user'
+                          ? 'bg-gradient-to-r from-neon-blue to-neon-purple text-white'
+                          : 'bg-white/10 backdrop-blur-sm border border-neon-blue/20 text-gray-200'
+                      }`}
+                    >
+                      <div className="prose prose-sm prose-invert max-w-none">
+                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                      </div>
                     </div>
+                    {/* Copy Button */}
+                    <button
+                      onClick={() => copyToClipboard(msg.content, idx)}
+                      className="absolute -top-2 -right-2 p-1.5 rounded-lg bg-gray-800/90 backdrop-blur-sm border border-neon-blue/30 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-neon-blue/20 hover:border-neon-blue"
+                      aria-label="Copy message"
+                    >
+                      {copiedMessageId === idx ? (
+                        <Check className="w-3.5 h-3.5 text-green-400" />
+                      ) : (
+                        <Copy className="w-3.5 h-3.5 text-gray-300 hover:text-neon-blue" />
+                      )}
+                    </button>
                   </div>
                 </div>
               ))
@@ -218,7 +244,7 @@ export function DemoChat() {
                 onKeyDown={handleKeyPress}
                 placeholder={cooldown ? "Please wait. Rate limit active..." : "Ask PangutanAI anything..."}
                 className="flex-1 p-3 rounded-xl bg-black/40 border border-neon-blue/30 text-white placeholder-gray-500 resize-none focus:outline-none focus:border-neon-blue focus:shadow-[0_0_20px_rgba(0,243,255,0.3)] transition-all duration-300"
-                rows="2"
+                rows={2}
                 disabled={isLoading || cooldown}
               />
               {isLoading ? (
