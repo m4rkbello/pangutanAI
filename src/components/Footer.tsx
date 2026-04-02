@@ -48,8 +48,8 @@ export function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Resources</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors">DeepSeek API</a></li>
-              <li><a href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors">GitHub</a></li>
+              <li><a href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors">Google Gemini API</a></li>
+              <li><a href="" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors">GitHub</a></li>
               <li><a href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors">Privacy Policy</a></li>
               <li><a href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors">Terms of Service</a></li>
             </ul>
