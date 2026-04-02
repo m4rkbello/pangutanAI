@@ -39,7 +39,6 @@ export function Navbar() {
             <span className="font-bold text-xl">Pangutan<span className="text-blue-600">AI</span></span>
           </div>
           
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
@@ -65,7 +64,6 @@ export function Navbar() {
             </button>
           </div>
           
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -75,7 +73,6 @@ export function Navbar() {
           </button>
         </div>
         
-        {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 flex flex-col gap-4">
             {navLinks.map((link) => (
