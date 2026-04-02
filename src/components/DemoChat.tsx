@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
-import { Send, Loader2, StopCircle, Trash2, Sparkles } from 'lucide-react';  // ← Added Sparkles
+import { Send, Loader2, StopCircle, Trash2, Sparkles } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 export function DemoChat() {
@@ -9,8 +9,10 @@ export function DemoChat() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [cooldown, setCooldown] = useState(false);
   const messagesEndRef = useRef(null);
   const abortControllerRef = useRef(null);
+  const lastRequestTime = useRef(0);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -32,98 +34,104 @@ export function DemoChat() {
     setError('');
   };
 
-  const sendMessage = async () => {
-    if (!input.trim() || isLoading) return;
-
-    const userMessage = { role: 'user', content: input };
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
-    setIsLoading(true);
-    setError('');
-
-    abortControllerRef.current = new AbortController();
-
-    try {
-      const apiKey = import.meta.env.VITE_DEEPSEEK_API_KEY;
-      
-      if (!apiKey) {
-        throw new Error('API key not found. Please check your .env file.');
-      }
-
-      const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({
-          model: 'deepseek-chat',
-          messages: [...messages, userMessage].map(m => ({
-            role: m.role,
-            content: m.content
-          })),
-          stream: true,
-          max_tokens: 2000,
-          temperature: 0.7,
-        }),
-        signal: abortControllerRef.current.signal,
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error?.message || `API Error: ${response.status}`);
-      }
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder('utf-8');
-      let accumulatedResponse = '';
-      let assistantMessage = { role: 'assistant', content: '' };
-      
-      setMessages(prev => [...prev, assistantMessage]);
-
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) break;
-
-        const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split('\n').filter(line => line.startsWith('data: '));
-
-        for (const line of lines) {
-          const data = line.slice(6);
-          if (data === '[DONE]') continue;
-
-          try {
-            const parsed = JSON.parse(data);
-            const delta = parsed.choices?.[0]?.delta?.content;
-            if (delta) {
-              accumulatedResponse += delta;
-              setMessages(prev => {
-                const newMessages = [...prev];
-                newMessages[newMessages.length - 1] = {
-                  role: 'assistant',
-                  content: accumulatedResponse
-                };
-                return newMessages;
-              });
-            }
-          } catch (e) {
-            console.debug('Parse error:', e);
-          }
-        }
-      }
-    } catch (error) {
-      if (error.name === 'AbortError') {
-        console.log('Request cancelled');
-      } else {
-        console.error('API Error:', error);
-        setError(error.message || 'Failed to get response from DeepSeek. Please try again.');
-        setMessages(prev => prev.slice(0, -1));
-      }
-    } finally {
-      setIsLoading(false);
-      abortControllerRef.current = null;
+  // Throttle function to limit request rate
+  const canMakeRequest = () => {
+    const now = Date.now();
+    const timeSinceLastRequest = now - lastRequestTime.current;
+    const minInterval = 4000; // 4 seconds between requests (15 RPM = 1 every 4 seconds)
+    
+    if (timeSinceLastRequest < minInterval) {
+      const waitTime = Math.ceil((minInterval - timeSinceLastRequest) / 1000);
+      setError(`Please wait ${waitTime} seconds between messages. Free tier limit: 15 requests per minute.`);
+      return false;
     }
+    
+    lastRequestTime.current = now;
+    return true;
   };
+
+const sendMessage = async () => {
+  if (!input.trim() || isLoading) return;
+  
+  // Check rate limit
+  if (!canMakeRequest()) return;
+  
+  // Check cooldown from previous rate limit
+  if (cooldown) {
+    setError('Please wait a moment before sending another message.');
+    return;
+  }
+
+  const userMessage = { role: 'user', content: input };
+  setMessages(prev => [...prev, userMessage]);
+  setInput('');
+  setIsLoading(true);
+  setError('');
+
+  abortControllerRef.current = new AbortController();
+
+  try {
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    
+    if (!apiKey) {
+      throw new Error('Gemini API key not found. Please check your .env file.');
+    }
+
+    const geminiMessages = messages.concat(userMessage).map(msg => ({
+      role: msg.role === 'user' ? 'user' : 'model',
+      parts: [{ text: msg.content }]
+    }));
+
+    // ✅ FIXED: Use a valid model name from your list
+    // Options: 'gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash'
+    const modelName = 'gemini-2.5-flash'; // Changed this line
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        contents: geminiMessages,
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 2000,
+        },
+      }),
+      signal: abortControllerRef.current.signal,
+    });
+
+    if (response.status === 429) {
+      setCooldown(true);
+      setTimeout(() => setCooldown(false), 60000);
+      throw new Error('Rate limit exceeded. Please wait 60 seconds before sending more messages.');
+    }
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      const errorMessage = errorData.error?.message || `API Error: ${response.status}`;
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    const assistantResponse = data.candidates[0]?.content?.parts[0]?.text || 'Sorry, I could not generate a response.';
+
+    setMessages(prev => [...prev, { role: 'assistant', content: assistantResponse }]);
+
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      console.log('Request cancelled');
+    } else {
+      console.error('API Error:', error);
+      setError(error.message || 'Failed to get response from Gemini. Please try again.');
+      setMessages(prev => prev.slice(0, -1));
+    }
+  } finally {
+    setIsLoading(false);
+    abortControllerRef.current = null;
+  }
+};
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -140,16 +148,17 @@ export function DemoChat() {
             Try PangutanAI Demo
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400">
-            Experience DeepSeek R1's capabilities in real-time
+            Experience Google Gemini's capabilities in real-time
           </p>
         </div>
 
         <Card className="bg-white dark:bg-gray-800 shadow-xl">
-          {/* Chat Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-sm font-medium">DeepSeek R1 • Ready</span>
+              <div className={`w-3 h-3 rounded-full ${cooldown ? 'bg-yellow-500 animate-pulse' : 'bg-green-500 animate-pulse'}`} />
+              <span className="text-sm font-medium">
+                {cooldown ? 'Rate Limited - Please Wait' : 'Google Gemini 2.0 Flash • Free'}
+              </span>
             </div>
             <Button
               variant="ghost"
@@ -161,13 +170,13 @@ export function DemoChat() {
             </Button>
           </div>
 
-          {/* Messages Area */}
           <div className="h-[400px] overflow-y-auto p-4 space-y-4">
             {messages.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center text-gray-400">
                 <Sparkles className="w-12 h-12 mb-4 opacity-50" />
                 <p className="text-lg">Ask me anything!</p>
                 <p className="text-sm mt-2">Try: "What can you do?" or "Write a React component"</p>
+                <p className="text-xs mt-4 text-yellow-500">⚠️ Free tier: 15 requests per minute. Please wait 4 seconds between messages.</p>
               </div>
             ) : (
               messages.map((msg, idx) => (
@@ -198,36 +207,35 @@ export function DemoChat() {
             )}
             {error && (
               <div className="bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 p-3 rounded-lg text-sm">
-                Error: {error}
+                {error}
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Area */}
           <div className="p-4 border-t border-gray-200 dark:border-gray-700">
             <div className="flex gap-2">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyPress}
-                placeholder="Ask PangutanAI anything..."
+                placeholder={cooldown ? "Please wait. Rate limit active..." : "Ask PangutanAI anything..."}
                 className="flex-1 p-3 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-900 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
                 rows="2"
-                disabled={isLoading}
+                disabled={isLoading || cooldown}
               />
               {isLoading ? (
                 <Button onClick={stopGeneration} variant="destructive">
                   <StopCircle className="w-4 h-4" />
                 </Button>
               ) : (
-                <Button onClick={sendMessage} disabled={!input.trim()}>
+                <Button onClick={sendMessage} disabled={!input.trim() || cooldown}>
                   <Send className="w-4 h-4" />
                 </Button>
               )}
             </div>
             <p className="text-xs text-gray-400 mt-2 text-center">
-              Powered by DeepSeek R1 • Streaming responses • Free to use
+              Powered by Google Gemini 2.0 Flash • Free tier: 15 requests/minute • 1500 requests/day
             </p>
           </div>
         </Card>

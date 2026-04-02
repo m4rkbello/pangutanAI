@@ -11,7 +11,7 @@ const features: Feature[] = [
   {
     icon: '🧠',
     title: 'Advanced Reasoning',
-    description: 'DeepSeek R1 excels at complex problem-solving, logical reasoning, and multi-step analysis.',
+    description: 'Powered by Google Gemini 2.0 for complex problem-solving and logical reasoning.',
     highlight: 'State-of-the-art performance',
   },
   {
@@ -28,9 +28,9 @@ const features: Feature[] = [
   },
   {
     icon: '⚡',
-    title: 'Real-Time Streaming',
-    description: 'Watch responses appear character-by-character for a natural, conversational experience.',
-    highlight: '< 100ms first token latency',
+    title: 'Fast Responses',
+    description: 'Lightning-fast responses with Google\'s optimized infrastructure.',
+    highlight: '< 500ms latency',
   },
   {
     icon: '🌍',
@@ -41,8 +41,8 @@ const features: Feature[] = [
   {
     icon: '🔒',
     title: 'Privacy First',
-    description: 'Your conversations stay private. No training data used from your chats.',
-    highlight: 'Enterprise-grade security',
+    description: 'Your conversations stay private. Google\'s enterprise-grade security.',
+    highlight: 'Secure by default',
   },
 ];
 
