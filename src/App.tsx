@@ -1,15 +1,19 @@
 import { Hero } from './components/Hero';
 import { Features } from './components/Features';
+import { DemoChat } from './components/DemoChat';
+import { Footer } from './components/Footer';
 import { Navbar } from './components/Navbar';
 
 function App() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <Navbar />
-      <main className="pt-16">
+      <main>
         <Hero />
         <Features />
+        <DemoChat />
       </main>
+      <Footer />
     </div>
   );
 }
