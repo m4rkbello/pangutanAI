@@ -60,7 +60,6 @@ export function Features() {
             Built for developers, researchers, and anyone who needs powerful AI assistance
           </p>
         </div>
-        
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <Card key={index} className="relative p-6 bg-black/40 backdrop-blur-sm border border-neon-blue/20 rounded-2xl hover:border-neon-blue/50 hover:shadow-[0_0_30px_rgba(0,243,255,0.1)] transition-all duration-500 group overflow-hidden">

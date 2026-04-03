@@ -67,11 +67,9 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-950/30 to-black" />
-      
       <div className="absolute top-20 left-10 w-96 h-96 bg-neon-blue/20 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-neon-pink/20 rounded-full blur-3xl animate-pulse delay-1000" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-purple/10 rounded-full blur-3xl animate-float" />
-      
       <div className="container relative mx-auto px-4 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="text-center lg:text-left animate-float">
@@ -79,7 +77,6 @@ export function Hero() {
               <Sparkles className="w-4 h-4 animate-pulse" />
               <span>Powered by Google Gemini 2.5 Flash</span>
             </div>
-            
             <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-6">
               <span className="bg-gradient-to-r from-white via-neon-blue to-neon-pink bg-clip-text text-transparent animate-gradient-shift">
                 PangutanAI
@@ -90,11 +87,9 @@ export function Hero() {
                 {' '}AI Assistant
               </span>
             </h1>
-            
             <p className="text-xl text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0">
               Powered by Google Gemini 2.5 Flash - Free, fast, and intelligent responses with 1M token context.
             </p>
-            
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
               <Button className="bg-gradient-to-r from-neon-blue to-neon-pink hover:shadow-[0_0_30px_rgba(0,243,255,0.5)] transition-all duration-300 text-lg px-8 py-6">
                 Get Started Free
@@ -104,17 +99,14 @@ export function Hero() {
               </Button>
             </div>
           </div>
-          
           <Card className="relative p-6 bg-black/60 backdrop-blur-xl border border-neon-blue/30 shadow-[0_0_50px_rgba(0,243,255,0.2)] rounded-2xl overflow-hidden group hover:shadow-[0_0_70px_rgba(255,0,228,0.3)] transition-all duration-500">
             <div className="absolute inset-0 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
-            
             <div className="flex items-center gap-2 mb-4 pb-3 border-b border-neon-blue/20">
               <div className="w-3 h-3 rounded-full bg-neon-blue animate-pulse" />
               <div className="w-3 h-3 rounded-full bg-neon-pink" />
               <div className="w-3 h-3 rounded-full bg-neon-purple" />
               <span className="ml-2 text-sm text-gray-400">Try PangutanAI Now</span>
             </div>
-            
             <div 
               ref={responseRef}
               className="min-h-[200px] max-h-[300px] overflow-y-auto mb-4 p-4 bg-black/40 rounded-xl border border-neon-blue/20"
@@ -131,7 +123,6 @@ export function Hero() {
                 </div>
               )}
             </div>
-            
             <div className="flex gap-2">
               <textarea
                 value={question}
@@ -150,7 +141,6 @@ export function Hero() {
                 {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
               </Button>
             </div>
-            
             <p className="text-xs text-gray-500 mt-3 text-center">
               Powered by Google Gemini 2.5 Flash • Free tier: 15 requests/minute
             </p>

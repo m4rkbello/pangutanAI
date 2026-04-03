@@ -8,7 +8,6 @@ export function Footer() {
     <footer className="relative bg-black/80 backdrop-blur-xl border-t border-neon-blue/20">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand Section */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <div className="relative">
@@ -37,8 +36,6 @@ export function Footer() {
               </a>
             </div>
           </div>
-
-          {/* Quick Links */}
           <div>
             <h3 className="font-semibold mb-4 text-neon-blue">Quick Links</h3>
             <ul className="space-y-2">
@@ -48,8 +45,6 @@ export function Footer() {
               <li><a href="#docs" className="text-gray-400 hover:text-neon-blue transition-colors">Documentation</a></li>
             </ul>
           </div>
-
-          {/* Resources */}
           <div>
             <h3 className="font-semibold mb-4 text-neon-pink">Resources</h3>
             <ul className="space-y-2">
@@ -60,8 +55,6 @@ export function Footer() {
             </ul>
           </div>
         </div>
-
-        {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-neon-blue/20 text-center text-gray-500 text-sm">
           <p>&copy; {currentYear} PangutanAI by Mark Bello. All rights reserved. Powered by Google Gemini 2.5 Flash.</p>
         </div>

@@ -39,8 +39,6 @@ export function Navbar() {
               Pangutan<span className="text-white">AI</span>
             </span>
           </div>
-          
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
@@ -56,8 +54,6 @@ export function Navbar() {
               Get Started
             </Button>
           </div>
-          
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors"
@@ -65,8 +61,6 @@ export function Navbar() {
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-        
-        {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden mt-6 pb-4 flex flex-col gap-4 bg-black/90 backdrop-blur-xl rounded-2xl p-6 border border-neon-blue/20">
             {navLinks.map((link) => (

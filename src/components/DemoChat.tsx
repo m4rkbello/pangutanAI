@@ -234,8 +234,6 @@ export function DemoChat() {
             )}
             <div ref={messagesEndRef} />
           </div>
-
-          {/* Input Area */}
           <div className="p-4 border-t border-neon-blue/20">
             <div className="flex gap-2">
               <textarea
