@@ -1,4 +1,4 @@
-import { FaGithub, FaTwitter, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaFacebook, FaYoutube, FaGoogle } from 'react-icons/fa';
 import { MdOutlineAutoAwesome } from 'react-icons/md';
 
 export function Footer() {
@@ -22,17 +22,46 @@ export function Footer() {
               Your intelligent AI assistant powered by Google Gemini 2.5 Flash. Experience advanced reasoning, code generation, and real-time answers.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="text-white/40 hover:text-neon-blue transition-all duration-300 hover:scale-110 transform">
+              {/* GitHub */}
+              <a 
+                href="https://github.com/m4rkbello" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white/40 hover:text-[#333] transition-all duration-300 hover:scale-110 transform"
+                aria-label="GitHub"
+              >
                 <FaGithub className="w-5 h-5" />
               </a>
-              <a href="#" className="text-white/40 hover:text-neon-blue transition-all duration-300 hover:scale-110 transform">
-                <FaTwitter className="w-5 h-5" />
+              
+              {/* Facebook */}
+              <a 
+                href="https://facebook.com/m4rkbello" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white/40 hover:text-[#1877F2] transition-all duration-300 hover:scale-110 transform"
+                aria-label="Facebook"
+              >
+                <FaFacebook className="w-5 h-5" />
               </a>
-              <a href="#" className="text-white/40 hover:text-neon-blue transition-all duration-300 hover:scale-110 transform">
-                <FaLinkedin className="w-5 h-5" />
+              
+              {/* YouTube */}
+              <a 
+                href="https://youtube.com/@m4rkbello" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white/40 hover:text-[#FF0000] transition-all duration-300 hover:scale-110 transform"
+                aria-label="YouTube"
+              >
+                <FaYoutube className="w-5 h-5" />
               </a>
-              <a href="#" className="text-white/40 hover:text-neon-blue transition-all duration-300 hover:scale-110 transform">
-                <FaEnvelope className="w-5 h-5" />
+              
+              {/* Gmail Compose */}
+              <a 
+                href="mailto:markamarcortejopanesbello@gmail.com?subject=Hello%20PangutanAI&body=I%20would%20like%20to%20know%20more%20about..." 
+                className="text-white/40 hover:text-[#EA4335] transition-all duration-300 hover:scale-110 transform"
+                aria-label="Gmail"
+              >
+                <FaGoogle className="w-5 h-5" />
               </a>
             </div>
           </div>
@@ -48,8 +77,8 @@ export function Footer() {
           <div>
             <h3 className="font-semibold mb-4 text-neon-pink">Resources</h3>
             <ul className="space-y-2">
-              <li><a href="https://aistudio.google.com/" className="text-white/60 hover:text-neon-pink transition-colors">Google Gemini API</a></li>
-              <li><a href="https://github.com/m4rkbello/pangutanAI" className="text-white/60 hover:text-neon-pink transition-colors">GitHub</a></li>
+              <li><a href="https://aistudio.google.com/" className="text-white/60 hover:text-neon-pink transition-colors" target="_blank" rel="noopener noreferrer">Google Gemini API</a></li>
+              <li><a href="https://github.com/m4rkbello/pangutanAI" className="text-white/60 hover:text-neon-pink transition-colors" target="_blank" rel="noopener noreferrer">GitHub</a></li>
               <li><a href="#" className="text-white/60 hover:text-neon-pink transition-colors">Privacy Policy</a></li>
               <li><a href="#" className="text-white/60 hover:text-neon-pink transition-colors">Terms of Service</a></li>
             </ul>
