@@ -1,0 +1,14 @@
+# netlify.toml
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+  VITE_GEMINI_API_KEY = "AIzaSyCc6pczDASt8fEU9v9P9KP3Aj_-qi7OIuQ"
+  VITE_API_BASE_URL = "https://generativelanguage.googleapis.com/v1beta"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
