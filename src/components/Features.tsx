@@ -62,13 +62,13 @@ export function Features() {
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
-            <Card key={index} className="relative p-6 bg-black/40 backdrop-blur-sm border border-neon-blue/20 rounded-2xl hover:border-neon-blue/50 hover:shadow-[0_0_30px_rgba(0,243,255,0.1)] transition-all duration-500 group overflow-hidden">
+            <Card key={index} className="relative p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl hover:border-neon-blue/30 hover:shadow-[0_8px_32px_rgba(0,243,255,0.1)] transition-all duration-500 group overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-r from-neon-blue/0 via-neon-purple/0 to-neon-pink/0 group-hover:from-neon-blue/5 group-hover:via-neon-purple/5 group-hover:to-neon-pink/5 transition-all duration-500" />
               <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">{feature.icon}</div>
-              <h3 className="text-xl font-semibold mb-2 group-hover:text-neon-blue transition-colors duration-300">
+              <h3 className="text-xl font-semibold mb-2 text-white group-hover:text-neon-blue transition-colors duration-300">
                 {feature.title}
               </h3>
-              <p className="text-gray-400 mb-3">
+              <p className="text-white/60 mb-3">
                 {feature.description}
               </p>
               <span className="text-sm text-neon-blue/70 group-hover:text-neon-pink transition-colors duration-300 font-medium">

@@ -73,7 +73,7 @@ export function Hero() {
       <div className="container relative mx-auto px-4 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="text-center lg:text-left animate-float">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neon-blue/10 border border-neon-blue/30 text-neon-blue text-sm mb-6 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neon-blue/10 backdrop-blur-sm border border-neon-blue/30 text-neon-blue text-sm mb-6">
               <Sparkles className="w-4 h-4 animate-pulse" />
               <span>Powered by Google Gemini 2.5 Flash</span>
             </div>
@@ -99,17 +99,17 @@ export function Hero() {
               </Button>
             </div>
           </div>
-          <Card className="relative p-6 bg-black/60 backdrop-blur-xl border border-neon-blue/30 shadow-[0_0_50px_rgba(0,243,255,0.2)] rounded-2xl overflow-hidden group hover:shadow-[0_0_70px_rgba(255,0,228,0.3)] transition-all duration-500">
-            <div className="absolute inset-0 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
-            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-neon-blue/20">
+          <Card className="relative p-6 bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] rounded-2xl overflow-hidden group hover:border-neon-blue/30 hover:shadow-[0_8px_32px_rgba(0,243,255,0.15)] transition-all duration-500">
+            <div className="absolute inset-0 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
               <div className="w-3 h-3 rounded-full bg-neon-blue animate-pulse" />
               <div className="w-3 h-3 rounded-full bg-neon-pink" />
               <div className="w-3 h-3 rounded-full bg-neon-purple" />
-              <span className="ml-2 text-sm text-gray-400">Try PangutanAI Now</span>
+              <span className="ml-2 text-sm text-white/60">Try PangutanAI Now</span>
             </div>
             <div 
               ref={responseRef}
-              className="min-h-[200px] max-h-[300px] overflow-y-auto mb-4 p-4 bg-black/40 rounded-xl border border-neon-blue/20"
+              className="min-h-[200px] max-h-[300px] overflow-y-auto mb-4 p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10"
             >
               {response ? (
                 <div className="prose prose-invert max-w-none">
@@ -118,8 +118,8 @@ export function Hero() {
               ) : (
                 <div className="text-center py-8">
                   <Sparkles className="w-12 h-12 mx-auto mb-4 text-neon-blue/50 animate-pulse" />
-                  <p className="text-gray-400">Ask me anything!</p>
-                  <p className="text-sm text-gray-500 mt-2">Try "What can you do?" or "Write a React component"</p>
+                  <p className="text-white/60">Ask me anything!</p>
+                  <p className="text-sm text-white/40 mt-2">Try "What can you do?" or "Write a React component"</p>
                 </div>
               )}
             </div>
@@ -129,7 +129,7 @@ export function Hero() {
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setQuestion(e.target.value)}
                 onKeyDown={handleKeyPress}
                 placeholder="Ask Gemini anything..."
-                className="flex-1 p-3 rounded-xl bg-black/40 border border-neon-blue/30 text-white placeholder-gray-500 resize-none focus:outline-none focus:border-neon-blue focus:shadow-[0_0_20px_rgba(0,243,255,0.3)] transition-all duration-300"
+                className="flex-1 p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/20 text-white placeholder-white/40 resize-none focus:outline-none focus:border-neon-blue/50 focus:shadow-[0_0_20px_rgba(0,243,255,0.1)] transition-all duration-300"
                 rows={2}
                 disabled={isLoading}
               />
@@ -141,7 +141,7 @@ export function Hero() {
                 {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
               </Button>
             </div>
-            <p className="text-xs text-gray-500 mt-3 text-center">
+            <p className="text-xs text-white/40 mt-3 text-center">
               Powered by Google Gemini 2.5 Flash • Free tier: 15 requests/minute
             </p>
           </Card>

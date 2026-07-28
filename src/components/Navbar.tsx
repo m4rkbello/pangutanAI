@@ -24,7 +24,7 @@ export function Navbar() {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
       scrolled 
-        ? 'bg-black/80 backdrop-blur-xl border-b border-neon-blue/20 shadow-[0_0_30px_rgba(0,243,255,0.1)]' 
+        ? 'bg-black/60 backdrop-blur-xl border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]' 
         : 'bg-transparent'
     }`}>
       <div className="container mx-auto px-4 py-4">
@@ -44,7 +44,7 @@ export function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-gray-300 hover:text-neon-blue transition-all duration-300 relative group"
+                className="text-white/70 hover:text-neon-blue transition-all duration-300 relative group"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-neon-blue to-neon-pink transition-all duration-300 group-hover:w-full" />
@@ -62,12 +62,12 @@ export function Navbar() {
           </button>
         </div>
         {isMenuOpen && (
-          <div className="md:hidden mt-6 pb-4 flex flex-col gap-4 bg-black/90 backdrop-blur-xl rounded-2xl p-6 border border-neon-blue/20">
+          <div className="md:hidden mt-6 pb-4 flex flex-col gap-4 bg-black/80 backdrop-blur-xl rounded-2xl p-6 border border-white/10">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-gray-300 hover:text-neon-blue transition-colors py-2 text-lg"
+                className="text-white/70 hover:text-neon-blue transition-colors py-2 text-lg"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.name}

@@ -155,12 +155,12 @@ export function DemoChat() {
           </p>
         </div>
 
-        <Card className="relative bg-black/60 backdrop-blur-xl border border-neon-blue/30 shadow-[0_0_50px_rgba(0,243,255,0.1)] rounded-2xl overflow-hidden">
+        <Card className="relative bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] rounded-2xl overflow-hidden hover:border-neon-blue/30 transition-all duration-300">
           {/* Chat Header */}
-          <div className="flex items-center justify-between p-4 border-b border-neon-blue/20">
+          <div className="flex items-center justify-between p-4 border-b border-white/10">
             <div className="flex items-center gap-2">
               <div className={`w-3 h-3 rounded-full ${cooldown ? 'bg-yellow-500 animate-pulse' : 'bg-neon-blue animate-pulse'}`} />
-              <span className="text-sm font-medium text-gray-300">
+              <span className="text-sm font-medium text-white/80">
                 {cooldown ? 'Rate Limited - Please Wait' : 'Google Gemini 2.5 Flash • Free'}
               </span>
             </div>
@@ -168,7 +168,7 @@ export function DemoChat() {
               variant="ghost"
               size="sm"
               onClick={clearChat}
-              className="text-gray-400 hover:text-neon-pink transition-colors"
+              className="text-white/40 hover:text-neon-pink transition-colors"
             >
               <Trash2 className="w-4 h-4" />
             </Button>
@@ -182,8 +182,8 @@ export function DemoChat() {
                   <Sparkles className="w-16 h-16 text-neon-blue/30 animate-pulse" />
                   <div className="absolute inset-0 blur-xl bg-neon-blue/20 rounded-full" />
                 </div>
-                <p className="text-lg text-gray-400 mt-4">Ask me anything!</p>
-                <p className="text-sm text-gray-500 mt-2">Try: "What can you do?" or "Write a React component"</p>
+                <p className="text-lg text-white/60 mt-4">Ask me anything!</p>
+                <p className="text-sm text-white/40 mt-2">Try: "What can you do?" or "Write a React component"</p>
                 <p className="text-xs text-yellow-500/70 mt-4">⚠️ Free tier: 15 requests per minute. Please wait 4 seconds between messages.</p>
               </div>
             ) : (
@@ -196,8 +196,8 @@ export function DemoChat() {
                     <div
                       className={`p-3 rounded-xl ${
                         msg.role === 'user'
-                          ? 'bg-gradient-to-r from-neon-blue to-neon-purple text-white'
-                          : 'bg-white/10 backdrop-blur-sm border border-neon-blue/20 text-gray-200'
+                          ? 'bg-gradient-to-r from-neon-blue/30 to-neon-purple/30 backdrop-blur-md border border-white/20 text-white'
+                          : 'bg-white/10 backdrop-blur-md border border-white/10 text-white'
                       }`}
                     >
                       <div className="prose prose-sm prose-invert max-w-none">
@@ -207,13 +207,13 @@ export function DemoChat() {
                     {/* Copy Button */}
                     <button
                       onClick={() => copyToClipboard(msg.content, idx)}
-                      className="absolute -top-2 -right-2 p-1.5 rounded-lg bg-gray-800/90 backdrop-blur-sm border border-neon-blue/30 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-neon-blue/20 hover:border-neon-blue"
+                      className="absolute -top-2 -right-2 p-1.5 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white/20"
                       aria-label="Copy message"
                     >
                       {copiedMessageId === idx ? (
                         <Check className="w-3.5 h-3.5 text-green-400" />
                       ) : (
-                        <Copy className="w-3.5 h-3.5 text-gray-300 hover:text-neon-blue" />
+                        <Copy className="w-3.5 h-3.5 text-white/60 hover:text-white" />
                       )}
                     </button>
                   </div>
@@ -222,31 +222,31 @@ export function DemoChat() {
             )}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-white/10 backdrop-blur-sm p-3 rounded-xl">
+                <div className="bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/10">
                   <Loader2 className="w-5 h-5 animate-spin text-neon-blue" />
                 </div>
               </div>
             )}
             {error && (
-              <div className="bg-red-500/10 border border-red-500/30 text-red-400 p-3 rounded-lg text-sm">
+              <div className="bg-red-500/20 backdrop-blur-md border border-red-500/30 text-red-400 p-3 rounded-lg text-sm">
                 {error}
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
-          <div className="p-4 border-t border-neon-blue/20">
+          <div className="p-4 border-t border-white/10">
             <div className="flex gap-2">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyPress}
                 placeholder={cooldown ? "Please wait. Rate limit active..." : "Ask PangutanAI anything..."}
-                className="flex-1 p-3 rounded-xl bg-black/40 border border-neon-blue/30 text-white placeholder-gray-500 resize-none focus:outline-none focus:border-neon-blue focus:shadow-[0_0_20px_rgba(0,243,255,0.3)] transition-all duration-300"
+                className="flex-1 p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/20 text-white placeholder-white/40 resize-none focus:outline-none focus:border-neon-blue/50 focus:shadow-[0_0_20px_rgba(0,243,255,0.1)] transition-all duration-300"
                 rows={2}
                 disabled={isLoading || cooldown}
               />
               {isLoading ? (
-                <Button onClick={stopGeneration} variant="destructive" className="bg-red-500/20 hover:bg-red-500/30 border-red-500/50">
+                <Button onClick={stopGeneration} variant="destructive" className="bg-red-500/20 backdrop-blur-md hover:bg-red-500/30 border-red-500/30">
                   <StopCircle className="w-5 h-5" />
                 </Button>
               ) : (
@@ -255,7 +255,7 @@ export function DemoChat() {
                 </Button>
               )}
             </div>
-            <p className="text-xs text-gray-500 mt-3 text-center">
+            <p className="text-xs text-white/40 mt-3 text-center">
               Powered by Google Gemini 2.5 Flash • Free tier: 15 requests/minute • 1500 requests/day
             </p>
           </div>
