@@ -22,7 +22,6 @@ export function Footer() {
               Your intelligent AI assistant powered by Google Gemini 2.5 Flash. Experience advanced reasoning, code generation, and real-time answers.
             </p>
             <div className="flex gap-4">
-              {/* GitHub */}
               <a 
                 href="https://github.com/m4rkbello" 
                 target="_blank" 
@@ -33,7 +32,6 @@ export function Footer() {
                 <FaGithub className="w-5 h-5" />
               </a>
               
-              {/* Facebook */}
               <a 
                 href="https://facebook.com/m4rkbello" 
                 target="_blank" 
@@ -44,7 +42,6 @@ export function Footer() {
                 <FaFacebook className="w-5 h-5" />
               </a>
               
-              {/* YouTube */}
               <a 
                 href="https://youtube.com/@m4rkbello" 
                 target="_blank" 
@@ -55,7 +52,6 @@ export function Footer() {
                 <FaYoutube className="w-5 h-5" />
               </a>
               
-              {/* Gmail Compose */}
               <a 
                 href="mailto:markamarcortejopanesbello@gmail.com?subject=Hello%20PangutanAI&body=I%20would%20like%20to%20know%20more%20about..." 
                 className="text-white/40 hover:text-[#EA4335] transition-all duration-300 hover:scale-110 transform"
