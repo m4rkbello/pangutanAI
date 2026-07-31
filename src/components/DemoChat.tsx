@@ -5,14 +5,14 @@ import { Send, Loader2, StopCircle, Trash2, Sparkles, Copy, Check } from 'lucide
 import ReactMarkdown from 'react-markdown';
 
 export function DemoChat() {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<Array<{role: string, content: string, id: number}>>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [cooldown, setCooldown] = useState(false);
-  const [copiedMessageId, setCopiedMessageId] = useState<string | number | null>(null);
-  const messagesEndRef = useRef(null);
-  const abortControllerRef = useRef(null);
+  const [copiedMessageId, setCopiedMessageId] = useState<number | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
   const lastRequestTime = useRef(0);
 
   const scrollToBottom = () => {
@@ -35,7 +35,7 @@ export function DemoChat() {
     setError('');
   };
 
-  const copyToClipboard = async (text: string, messageId: string | number) => {
+  const copyToClipboard = async (text: string, messageId: number) => {
     try {
       await navigator.clipboard.writeText(text);
       setCopiedMessageId(messageId);
@@ -120,7 +120,7 @@ export function DemoChat() {
 
       setMessages(prev => [...prev, { role: 'assistant', content: assistantResponse, id: Date.now() + 1 }]);
 
-    } catch (error) {
+    } catch (error: any) {
       if (error.name === 'AbortError') {
         console.log('Request cancelled');
       } else {
@@ -134,7 +134,7 @@ export function DemoChat() {
     }
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
@@ -142,25 +142,25 @@ export function DemoChat() {
   };
 
   return (
-    <section id="demo" className="py-20 relative overflow-hidden">
+    <section id="demo" className="py-16 sm:py-20 lg:py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-950/20 to-black" />
       
-      <div className="container mx-auto px-4 max-w-4xl relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink bg-clip-text text-transparent">
+      <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative z-10">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink bg-clip-text text-transparent animate-gradient-shift">
             Try PangutanAI Demo
           </h2>
-          <p className="text-xl text-gray-300">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-300">
             Experience Google Gemini's capabilities in real-time
           </p>
         </div>
 
         <Card className="relative bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] rounded-2xl overflow-hidden hover:border-neon-blue/30 transition-all duration-300">
           {/* Chat Header */}
-          <div className="flex items-center justify-between p-4 border-b border-white/10">
+          <div className="flex items-center justify-between p-3 sm:p-4 border-b border-white/10">
             <div className="flex items-center gap-2">
-              <div className={`w-3 h-3 rounded-full ${cooldown ? 'bg-yellow-500 animate-pulse' : 'bg-neon-blue animate-pulse'}`} />
-              <span className="text-sm font-medium text-white/80">
+              <div className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${cooldown ? 'bg-yellow-500 animate-pulse' : 'bg-neon-blue animate-pulse'}`} />
+              <span className="text-xs sm:text-sm font-medium text-white/80">
                 {cooldown ? 'Rate Limited - Please Wait' : 'Google Gemini 2.5 Flash • Free'}
               </span>
             </div>
@@ -170,21 +170,21 @@ export function DemoChat() {
               onClick={clearChat}
               className="text-white/40 hover:text-neon-pink transition-colors"
             >
-              <Trash2 className="w-4 h-4" />
+              <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </Button>
           </div>
 
           {/* Messages Area */}
-          <div className="h-[400px] overflow-y-auto p-4 space-y-4">
+          <div className="h-[300px] sm:h-[400px] overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4">
             {messages.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-full text-center">
+              <div className="flex flex-col items-center justify-center h-full text-center px-4">
                 <div className="relative">
-                  <Sparkles className="w-16 h-16 text-neon-blue/30 animate-pulse" />
+                  <Sparkles className="w-12 h-12 sm:w-16 sm:h-16 text-neon-blue/30 animate-pulse" />
                   <div className="absolute inset-0 blur-xl bg-neon-blue/20 rounded-full" />
                 </div>
-                <p className="text-lg text-white/60 mt-4">Ask me anything!</p>
-                <p className="text-sm text-white/40 mt-2">Try: "What can you do?" or "Write a React component"</p>
-                <p className="text-xs text-yellow-500/70 mt-4">⚠️ Free tier: 15 requests per minute. Please wait 4 seconds between messages.</p>
+                <p className="text-base sm:text-lg text-white/60 mt-4">Ask me anything!</p>
+                <p className="text-xs sm:text-sm text-white/40 mt-2">Try: "What can you do?" or "Write a React component"</p>
+                <p className="text-[10px] sm:text-xs text-yellow-500/70 mt-4">⚠️ Free tier: 15 requests per minute. Please wait 4 seconds between messages.</p>
               </div>
             ) : (
               messages.map((msg, idx) => (
@@ -192,28 +192,28 @@ export function DemoChat() {
                   key={idx}
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} group`}
                 >
-                  <div className="relative max-w-[80%]">
+                  <div className="relative max-w-[85%] sm:max-w-[80%]">
                     <div
-                      className={`p-3 rounded-xl ${
+                      className={`p-2.5 sm:p-3 rounded-xl ${
                         msg.role === 'user'
                           ? 'bg-gradient-to-r from-neon-blue/30 to-neon-purple/30 backdrop-blur-md border border-white/20 text-white'
                           : 'bg-white/10 backdrop-blur-md border border-white/10 text-white'
                       }`}
                     >
-                      <div className="prose prose-sm prose-invert max-w-none">
+                      <div className="prose prose-sm sm:prose-base prose-invert max-w-none">
                         <ReactMarkdown>{msg.content}</ReactMarkdown>
                       </div>
                     </div>
                     {/* Copy Button */}
                     <button
                       onClick={() => copyToClipboard(msg.content, idx)}
-                      className="absolute -top-2 -right-2 p-1.5 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white/20"
+                      className="absolute -top-2 -right-2 p-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white/20"
                       aria-label="Copy message"
                     >
                       {copiedMessageId === idx ? (
-                        <Check className="w-3.5 h-3.5 text-green-400" />
+                        <Check className="w-3 h-3 text-green-400" />
                       ) : (
-                        <Copy className="w-3.5 h-3.5 text-white/60 hover:text-white" />
+                        <Copy className="w-3 h-3 text-white/60 hover:text-white" />
                       )}
                     </button>
                   </div>
@@ -223,39 +223,41 @@ export function DemoChat() {
             {isLoading && (
               <div className="flex justify-start">
                 <div className="bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/10">
-                  <Loader2 className="w-5 h-5 animate-spin text-neon-blue" />
+                  <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin text-neon-blue" />
                 </div>
               </div>
             )}
             {error && (
-              <div className="bg-red-500/20 backdrop-blur-md border border-red-500/30 text-red-400 p-3 rounded-lg text-sm">
+              <div className="bg-red-500/20 backdrop-blur-md border border-red-500/30 text-red-400 p-2.5 sm:p-3 rounded-lg text-xs sm:text-sm">
                 {error}
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
-          <div className="p-4 border-t border-white/10">
+
+          {/* Input Area */}
+          <div className="p-3 sm:p-4 border-t border-white/10">
             <div className="flex gap-2">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyPress}
                 placeholder={cooldown ? "Please wait. Rate limit active..." : "Ask PangutanAI anything..."}
-                className="flex-1 p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/20 text-white placeholder-white/40 resize-none focus:outline-none focus:border-neon-blue/50 focus:shadow-[0_0_20px_rgba(0,243,255,0.1)] transition-all duration-300"
+                className="flex-1 p-2.5 sm:p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/20 text-white placeholder-white/40 resize-none focus:outline-none focus:border-neon-blue/50 focus:shadow-[0_0_20px_rgba(0,243,255,0.1)] transition-all duration-300 text-sm sm:text-base min-h-[60px] sm:min-h-[80px]"
                 rows={2}
                 disabled={isLoading || cooldown}
               />
               {isLoading ? (
-                <Button onClick={stopGeneration} variant="destructive" className="bg-red-500/20 backdrop-blur-md hover:bg-red-500/30 border-red-500/30">
-                  <StopCircle className="w-5 h-5" />
+                <Button onClick={stopGeneration} variant="destructive" className="px-3 sm:px-4 bg-red-500/20 backdrop-blur-md hover:bg-red-500/30 border-red-500/30">
+                  <StopCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
               ) : (
-                <Button onClick={sendMessage} disabled={!input.trim() || cooldown} className="bg-gradient-to-r from-neon-blue to-neon-pink hover:shadow-[0_0_20px_rgba(0,243,255,0.5)] transition-all duration-300">
-                  <Send className="w-5 h-5" />
+                <Button onClick={sendMessage} disabled={!input.trim() || cooldown} variant="neon" className="px-3 sm:px-4">
+                  <Send className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
               )}
             </div>
-            <p className="text-xs text-white/40 mt-3 text-center">
+            <p className="text-[10px] sm:text-xs text-white/40 mt-3 text-center">
               Powered by Google Gemini 2.5 Flash • Free tier: 15 requests/minute • 1500 requests/day
             </p>
           </div>

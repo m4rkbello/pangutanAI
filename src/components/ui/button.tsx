@@ -9,25 +9,23 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_32px_rgba(0,243,255,0.15)]",
-        outline: "bg-white/5 backdrop-blur-md border-white/20 text-white hover:bg-white/15 hover:border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.08)]",
-        secondary: "bg-white/15 backdrop-blur-md border-white/20 text-white hover:bg-white/25 shadow-[0_8px_32px_rgba(0,0,0,0.12)]",
-        ghost: "bg-transparent text-white hover:bg-white/10 backdrop-blur-sm",
-        destructive: "bg-red-500/20 backdrop-blur-md border-red-500/30 text-red-400 hover:bg-red-500/30 shadow-[0_8px_32px_rgba(239,68,68,0.15)]",
-        link: "text-neon-blue underline-offset-4 hover:underline bg-transparent",
+        default: "bg-gradient-to-r from-neon-blue to-neon-pink text-white hover:shadow-[0_0_30px_rgba(0,243,255,0.5)] hover:scale-105 active:scale-95 border-0",
+        outline: "bg-transparent border-neon-blue/50 text-neon-blue hover:bg-neon-blue/10 hover:border-neon-blue hover:shadow-[0_0_20px_rgba(0,243,255,0.2)]",
+        secondary: "bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20 hover:border-neon-blue/30 hover:shadow-[0_0_20px_rgba(0,243,255,0.1)]",
+        ghost: "bg-transparent text-white hover:bg-neon-blue/10 hover:text-neon-blue backdrop-blur-sm",
+        destructive: "bg-red-500/20 backdrop-blur-md border-red-500/30 text-red-400 hover:bg-red-500/30 hover:border-red-500/50 hover:shadow-[0_0_20px_rgba(239,68,68,0.2)]",
+        link: "text-neon-blue underline-offset-4 hover:underline bg-transparent hover:text-neon-pink",
+        neon: "bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink text-white hover:shadow-[0_0_40px_rgba(0,243,255,0.6)] hover:scale-105 active:scale-95 border-0 bg-[length:200%_200%] animate-gradient-shift",
       },
       size: {
-        default:
-          "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        default: "h-9 gap-1.5 px-3.5 text-sm has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5",
         xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-        lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        icon: "size-8",
-        "icon-xs":
-          "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm":
-          "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
-        "icon-lg": "size-9",
+        sm: "h-8 gap-1 rounded-[min(var(--radius-md),12px)] px-3 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
+        lg: "h-10 gap-1.5 px-4 text-base has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5",
+        icon: "size-9",
+        "icon-xs": "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
+        "icon-sm": "size-8 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
+        "icon-lg": "size-10",
       },
     },
     defaultVariants: {

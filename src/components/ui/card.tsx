@@ -1,5 +1,4 @@
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
 
 function Card({
@@ -12,7 +11,7 @@ function Card({
       data-slot="card"
       data-size={size}
       className={cn(
-        "group/card flex flex-col gap-4 overflow-hidden rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 text-sm text-white shadow-[0_8px_32px_rgba(0,0,0,0.2)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl hover:bg-white/8 transition-all duration-300",
+        "group/card flex flex-col gap-4 overflow-hidden rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 text-white shadow-[0_8px_32px_rgba(0,0,0,0.3)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl hover:border-neon-blue/30 hover:shadow-[0_8px_40px_rgba(0,243,255,0.15)] transition-all duration-500",
         className
       )}
       {...props}
@@ -38,7 +37,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-title"
       className={cn(
-        "font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm text-white",
+        "font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm bg-gradient-to-r from-white via-neon-blue to-neon-pink bg-clip-text text-transparent",
         className
       )}
       {...props}

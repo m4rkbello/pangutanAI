@@ -6,7 +6,7 @@ import { Navbar } from './components/Navbar';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-[#0a0a0f]">
       <Navbar />
       <main>
         <Hero />

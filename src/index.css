@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Neon Blue & Pink Color Palette */
+  /* Neon Color Palette */
   --color-neon-blue: #00f3ff;
   --color-neon-pink: #ff00e4;
   --color-neon-purple: #b400ff;
@@ -11,12 +11,23 @@
 }
 
 @layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
   html {
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
   }
   
   body {
     @apply antialiased;
+    background: #0a0a0f;
+    color: #ffffff;
+    overflow-x: hidden;
+    font-family: system-ui, -apple-system, sans-serif;
   }
 }
 
@@ -61,6 +72,15 @@
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
@@ -76,7 +96,8 @@
 
 /* Custom scrollbar for neon theme */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -91,4 +112,19 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #ff00e4, #00f3ff);
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* Smooth transitions for mobile */
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
