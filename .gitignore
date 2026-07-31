@@ -24,6 +24,8 @@ dist-ssr/
 netlify.toml
 .netlify.toml
 .netlify/
+netlify.toml.template
+.netlify.toml.template
 
 # IDE
 .vscode/*

@@ -1,0 +1,5 @@
+1. Go to your terminal as c:/laragon/www/xxxx/root and INSTALL npm install -g netlify-cli for global connection of the CLI 
+2. Go to your terminal and type the 
+    ->netlify login
+3.netlify link
+4. netlify deploy --prod
